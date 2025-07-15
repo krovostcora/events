@@ -1,49 +1,91 @@
-import React from 'react';
-import './styles/EventDetails.css';
+import React, { useEffect, useState } from 'react';
+import {useLocation, useNavigate} from 'react-router-dom';
+import './styles/EventSelector.css';
 import { FormWindow } from './window/FormWindow';
 import { FormBody } from './window/FormBody';
-import { useNavigate } from 'react-router-dom';
 
-export default function EventDetails() {
+export default function EventSelector() {
+    const [open, setOpen] = useState(false);
+    const [selectedName, setSelectedName] = useState(null);
+    const [events, setEvents] = useState([]);
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const location = useLocation();
+    const event = location.state?.event;
+
+    useEffect(() => {
+        fetch('http://localhost:3001/api/events')
+            .then(res => res.json())
+            .then(data => {
+                if (Array.isArray(data)) {
+                    setEvents(data);
+                } else {
+                    setEvents([]);
+                    setError('Events data is not an array');
+                }
+            })
+            .catch(() => {
+                setEvents([]);
+                setError('Failed to load events');
+            });
+    }, []);
+
+    const handleAccept = () => {
+        if (selectedName) {
+            navigate('/EventDetails', { state: { event: selectedName } });
+        }
+    };
 
     return (
         <FormWindow>
             <FormBody>
-                <h2 className="event-name">Nombre carrera</h2>
-
-                <div className="top-row">
-                    <div className="event-logo">LOGO</div>
-
-                    <div className="event-data">
-                        <h4>Datos</h4>
-                        <div className="data-section">
-                            <div>
-                                <strong>SALIDA</strong><br />
-                                Fecha: dd/MM/yyyy<br />
-                                Hora: HH:mm<br />
-                                Lugar: <a href="/">Población</a>
-                            </div>
-                            <div>
-                                <strong>LLEGADA</strong><br />
-                                *Salida y llegada mismo sitio<br />
-                                Otra info
-                            </div>
-                        </div>
+                <div className="top-buttons-row">
+                    <div className="dropdown-container">
+                        <button
+                            className="dropdown-btn"
+                            aria-haspopup="listbox"
+                            aria-expanded={open}
+                            onClick={() => setOpen(prev => !prev)}
+                        >
+                            {selectedName || 'Show Options'}
+                        </button>
+                        {open && (
+                            <ul className="dropdown-list" role="listbox">
+                                {events.map((event, idx) => (
+                                    <li
+                                        key={event.id || idx}
+                                        role="option"
+                                        aria-selected={selectedName === event.name}
+                                        className={selectedName === event.name ? 'selected' : ''}
+                                        onClick={() => {
+                                            setSelectedName(event.name);
+                                            setOpen(false);
+                                        }}
+                                    >
+                                        {event.name}
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
                     </div>
-                </div>
-
-                <div className="map-section">
-                    <label>Recorrido</label>
-                    <div className="route-map">496 x 120</div>
-                </div>
-
-                <div className="buttons-row">
-                    <button className="Exit" onClick={() => navigate('/EventSelector')}>
-                        Cancelar
+                    <button
+                        className="accept-btn"
+                        onClick={handleAccept}
+                        disabled={!selectedName}
+                    >
+                        Accept
                     </button>
-                    <button className="Manage">Gestionar inscripciones</button>
-                    <button className="Start">Cronometrar</button>
+                </div>
+
+                {error && <div className="error-message">{error}</div>}
+
+                <div className="buttons-container">
+                    <button className="Exit" onClick={() => navigate('/')}>
+                        Cancel
+                    </button>
+                    <button className="Start" onClick={() => navigate('/NewEventForm')}>
+                        New party
+                    </button>
                 </div>
             </FormBody>
         </FormWindow>

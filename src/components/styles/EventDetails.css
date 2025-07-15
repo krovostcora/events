@@ -1,5 +1,4 @@
 .event-name {
-    font-family: 'Courier New', monospace;
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
@@ -18,14 +17,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Courier New', monospace;
     font-size: 12px;
 }
 
 .event-data {
     border: 1px solid #000;
     padding: 10px 20px;
-    font-family: 'Courier New', monospace;
     width: 100%;
 }
 
@@ -41,7 +38,6 @@
 
 .map-section label {
     display: block;
-    font-family: 'Courier New', monospace;
     margin-bottom: 6px;
 }
 
@@ -49,7 +45,6 @@
     width: 496px;
     height: 120px;
     border: 2px solid #000;
-    font-family: 'Courier New', monospace;
     font-size: 12px;
     display: flex;
     align-items: center;
@@ -73,7 +68,6 @@ button.Start {
     background-color: #fff;
     color: #000;
     transition: background-color 0.2s ease;
-    font-family: 'Courier New', monospace;
     width: 100%;
 }
 
