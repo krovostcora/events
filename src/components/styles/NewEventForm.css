@@ -1,0 +1,112 @@
+
+
+.form-titlebar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ddd;
+    padding: 6px 10px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.window-buttons span {
+    margin-left: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.form-body {
+    width: 80%;
+    align-self: center;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.full-width-input {
+    width: 100%;
+    margin: auto;
+    padding: 10px;
+    font-size: 14px;
+    border: 2px solid #000;
+    border-radius: 0;
+}
+
+.form-row {
+
+    display: flex;
+    gap: 20px;
+}
+
+.upload-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 122px;
+}
+
+.upload-label {
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.upload-box {
+    width: 122px;
+    height: 122px;
+    border: 1px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    background-color: #f9f9f9;
+    position: relative;
+    overflow: hidden;
+}
+
+.upload-box input[type="file"] {
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    cursor: pointer;
+}
+
+.input-group {
+    padding-top: 26px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 2px solid #000;
+    border-radius: 0;
+}
+
+.buttons-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+button.Exit,
+button.Start {
+    padding: 10px 30px;
+    font-size: 14px;
+    border: 2px solid #000;
+    background: #fff;
+    cursor: pointer;
+    border-radius: 0;
+    transition: background-color 0.2s ease;
+}
+
+button.Exit:hover,
+button.Start:hover {
+    background-color: #e6e6e6;
+}

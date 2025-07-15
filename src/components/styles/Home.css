@@ -1,0 +1,35 @@
+/* Home.styles */
+
+img {
+    width: 160px;
+    height: 160px;
+    margin-bottom: 40px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+button.Start,
+button.Exit {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+}
+
+button.Start {
+    background-color: #4caf50;
+    color: white;
+}
+
+button.Exit {
+    background-color: #f44336;
+    color: white;
+}

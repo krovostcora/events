@@ -1,0 +1,83 @@
+
+.top-buttons-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 30px;
+}
+
+.dropdown-btn {
+    width: 300px;
+    padding: 10px 24px;
+    font-size: 14px;
+    border: 2px solid #000;
+    background-color: #fff;
+    color: #000;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.accept-btn {
+    padding: 10px 24px;
+    font-size: 14px;
+    border: 2px solid #000;
+    background-color: #b5b3b3;
+    color: #000;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-btn:hover,
+.accept-btn:hover {
+    background-color: #e6e6e6;
+}
+
+.dropdown-list {
+    position: absolute;
+    top: 42px;
+    left: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 2px solid #000;
+    background-color: #fff;
+    z-index: 1000;
+    width: 296px;
+}
+
+.dropdown-list li {
+    padding: 10px 24px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.dropdown-list li:hover {
+    background-color: #f0f0f0;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+button.Start,
+button.Exit {
+    padding: 12px 32px;
+    font-size: 16px;
+    cursor: pointer;
+    border: 2px solid #000;
+    background-color: #fff;
+    color: #000;
+    transition: background-color 0.2s ease;
+    border-radius: 0;
+}
+
+button.Start {
+    background-color: #b5b3b3;
+    width: 250px;
+}
+
+button.Start:hover,
+button.Exit:hover {
+    background-color: #e6e6e6;
+}
