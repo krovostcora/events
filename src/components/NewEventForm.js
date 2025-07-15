@@ -24,16 +24,14 @@ export default function NewEventForm() {
         const folderName = formatFolderName(form.name, form.date);
         const csvContent = `name;date;time;place\n${form.name};${form.date};${form.time};${form.location}`;
 
-        const folderHandle = await window.showDirectoryPicker(); // користувач обирає /events
+        const folderHandle = await window.showDirectoryPicker(); 
         const eventFolder = await folderHandle.getDirectoryHandle(folderName, { create: true });
 
-        // запис CSV
         const csvFile = await eventFolder.getFileHandle(`${folderName}.csv`, { create: true });
         const writable = await csvFile.createWritable();
         await writable.write(csvContent);
         await writable.close();
 
-        // запис PNG
         if (form.logo) {
             const logoFile = await eventFolder.getFileHandle('logo.png', { create: true });
             const logoWritable = await logoFile.createWritable();
