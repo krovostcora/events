@@ -14,6 +14,36 @@ export default function NewEventForm() {
     });
     const navigate = useNavigate();
 
+    function formatFolderName(name, date) {
+        const cleaned = name.toLowerCase().replace(/\s+/g, '');
+        const formattedDate = date.replaceAll('-', '');
+        return `${formattedDate}_${cleaned}`;
+    }
+
+    async function handleAccept() {
+        const folderName = formatFolderName(form.name, form.date);
+        const csvContent = `name;date;time;place\n${form.name};${form.date};${form.time};${form.location}`;
+
+        const folderHandle = await window.showDirectoryPicker(); // користувач обирає /events
+        const eventFolder = await folderHandle.getDirectoryHandle(folderName, { create: true });
+
+        // запис CSV
+        const csvFile = await eventFolder.getFileHandle(`${folderName}.csv`, { create: true });
+        const writable = await csvFile.createWritable();
+        await writable.write(csvContent);
+        await writable.close();
+
+        // запис PNG
+        if (form.logo) {
+            const logoFile = await eventFolder.getFileHandle('logo.png', { create: true });
+            const logoWritable = await logoFile.createWritable();
+            await logoWritable.write(await form.logo.arrayBuffer());
+            await logoWritable.close();
+        }
+
+        navigate('/EventSelector');
+    }
+
     return (
         <FormWindow>
             <FormBody>
@@ -39,13 +69,13 @@ export default function NewEventForm() {
 
                     <div className="input-group">
                         <input
-                            type="text"
+                            type="date"
                             placeholder="Date of the event"
                             value={form.date}
                             onChange={(e) => setForm({ ...form, date: e.target.value })}
                         />
                         <input
-                            type="text"
+                            type="time"
                             placeholder="Time of the event"
                             value={form.time}
                             onChange={(e) => setForm({ ...form, time: e.target.value })}
@@ -60,12 +90,8 @@ export default function NewEventForm() {
                 </div>
 
                 <div className="buttons-row">
-                    <button
-                        className="Exit"
-                        onClick={() => navigate('/EventSelector')}
-                    >
-                        Cancel</button>
-                    <button className="Start">Accept</button>
+                    <button className="Exit" onClick={() => navigate('/EventSelector')}>Cancel</button>
+                    <button className="Start" onClick={handleAccept}>Accept</button>
                 </div>
             </FormBody>
         </FormWindow>

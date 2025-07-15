@@ -15,6 +15,7 @@ export default function EventSelector() {
         if (selectedItem) {
             console.log('Accepted:', selectedItem);
             setOpen(false);
+            navigate('/EventDetails', { state: { event: selectedItem } });
         }
     };
 

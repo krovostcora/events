@@ -1,0 +1,88 @@
+.event-name {
+    font-family: 'Courier New', monospace;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.top-row {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.event-logo {
+    width: 122px;
+    height: 122px;
+    border: 2px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+}
+
+.event-data {
+    border: 1px solid #000;
+    padding: 10px 20px;
+    font-family: 'Courier New', monospace;
+    width: 100%;
+}
+
+.event-data h4 {
+    margin: 0 0 10px 0;
+}
+
+.data-section {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.map-section label {
+    display: block;
+    font-family: 'Courier New', monospace;
+    margin-bottom: 6px;
+}
+
+.route-map {
+    width: 496px;
+    height: 120px;
+    border: 2px solid #000;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.buttons-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+button.Exit,
+button.Manage,
+button.Start {
+    padding: 12px 32px;
+    font-size: 16px;
+    cursor: pointer;
+    border: 2px solid #000;
+    background-color: #fff;
+    color: #000;
+    transition: background-color 0.2s ease;
+    font-family: 'Courier New', monospace;
+    width: 100%;
+}
+
+button.Manage {
+    background-color: #b5b3b3;
+}
+
+button.Exit:hover,
+button.Manage:hover,
+button.Start:hover {
+    background-color: #e6e6e6;
+}
