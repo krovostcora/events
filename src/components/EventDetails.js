@@ -55,32 +55,50 @@ export default function EventDetails() {
         <FormWindow>
             <FormBody>
                 <h2 className="event-name">{event.name}</h2>
+
                 <div className="top-row">
-                    <div className="event-logo">LOGO</div>
+                    <div className="event-logo">
+                        {eventName && (
+                            <img
+                                src={`http://localhost:3001/${eventName}/logo.png`}
+                                alt="Event Logo"
+                                onError={e => {
+                                    e.target.onerror = null;
+                                    e.target.src = '/placeholder-logo.svg.png';
+                                }}
+                            />
+                        )}
+                    </div>
+
                     <div className="event-data">
-                        <h4>Event Details</h4>
                         <div className="data-section">
                             <div>
-                                <strong>Start</strong><br />
+                                <strong>START</strong><br />
                                 Date: {event.date}<br />
                                 Time: {event.time}<br />
-                                Place: <span>{event.place}</span>
+                                Location: <a href="#">{event.place}</a>
+                            </div>
+                            <div>
+                                <strong>FINISH</strong><br />
+                                *Start and finish at the same location<br />
+                                Additional info
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="map-section">
-                    <label>Route Map</label>
-                    <div className="route-map">496 x 120</div>
-                </div>
+
+                {/*<div className="map-section">*/}
+                {/*    <label>Route</label>*/}
+                {/*    <div className="route-map">496 x 120</div>*/}
+                {/*</div>*/}
+
                 <div className="buttons-row">
-                    <button className="Exit" onClick={() => navigate('/EventSelector')}>
-                        Cancel
-                    </button>
+                    <button className="Exit" onClick={() => navigate('/EventSelector')}>Cancel</button>
                     <button className="Manage">Manage Registrations</button>
-                    <button className="Start">Start Event</button>
+                    <button className="Start">Start Timing</button>
                 </div>
             </FormBody>
         </FormWindow>
     );
+
 }

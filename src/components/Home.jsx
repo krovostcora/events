@@ -12,9 +12,14 @@ export default function Home() {
             <FormBody>
                 {/* Logo */}
                 <img
-                    src="/logo.png"
+                    src="/cronostera.svg"
                     alt="Logo"
-                    className="w-40 h-40 mb-10"
+                    style={{
+                        height: '200px',
+                        display: 'block',
+                        margin: '-20px auto 40px',
+                        width: 'auto'
+                    }}
                 />
 
                 {/* Buttons */}

@@ -35,7 +35,7 @@ export default function NewEventForm() {
         await writable.close();
 
         if (form.logo) {
-            const logoFile = await eventFolder.getFileHandle('logo.png', { create: true });
+            const logoFile = await eventFolder.getFileHandle('logo.svg.png', { create: true });
             const logoWritable = await logoFile.createWritable();
             await logoWritable.write(await form.logo.arrayBuffer());
             await logoWritable.close();
