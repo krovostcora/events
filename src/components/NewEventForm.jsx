@@ -3,6 +3,7 @@ import './styles/NewEventForm.css';
 import { FormWindow } from './window/FormWindow';
 import { FormBody } from './window/FormBody';
 import { useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function NewEventForm() {
     const [form, setForm] = useState({
@@ -22,9 +23,10 @@ export default function NewEventForm() {
 
     async function handleAccept() {
         const folderName = formatFolderName(form.name, form.date);
-        const csvContent = `name;date;time;place\n${form.name};${form.date};${form.time};${form.location}`;
+        const eventId = uuidv4();
+        const csvContent = `id;name;date;time;place\n${eventId};${form.name};${form.date};${form.time};${form.location}`;
 
-        const folderHandle = await window.showDirectoryPicker(); 
+        const folderHandle = await window.showDirectoryPicker();
         const eventFolder = await folderHandle.getDirectoryHandle(folderName, { create: true });
 
         const csvFile = await eventFolder.getFileHandle(`${folderName}.csv`, { create: true });

@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import './styles/EventSelector.css';
 import { FormWindow } from './window/FormWindow';
 import { FormBody } from './window/FormBody';
-import Papa from 'papaparse';
 
 export default function EventSelector() {
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -13,13 +12,11 @@ export default function EventSelector() {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-
     useEffect(() => {
         fetch('http://localhost:3001/api/events')
-            .then(res => res.text())
-            .then(csvText => {
-                const results = Papa.parse(csvText, { header: true, delimiter: ';' });
-                const dataWithId = results.data.map((item, index) => ({ id: index.toString(), ...item }));
+            .then(res => res.json())
+            .then(data => {
+                const dataWithId = data.map((item, index) => ({ id: index.toString(), ...item }));
                 setEvents(dataWithId);
                 setLoading(false);
             })
@@ -28,7 +25,6 @@ export default function EventSelector() {
                 setLoading(false);
             });
     }, []);
-
 
     const handleAccept = () => {
         if (selectedEvent) {
