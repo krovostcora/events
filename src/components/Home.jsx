@@ -10,7 +10,6 @@ export default function Home() {
     return (
         <FormWindow>
             <FormBody>
-                {/* Logo */}
                 <img
                     src="/cronostera.svg"
                     alt="Logo"
@@ -21,16 +20,9 @@ export default function Home() {
                         width: 'auto'
                     }}
                 />
-
-                {/* Buttons */}
-                <div className="buttons-container">
-                    <button className="Exit">
-                        Exit
-                    </button>
-                    <button
-                        className="Start"
-                        onClick={() => navigate('/EventSelector')}
-                    >
+                <div className="home-buttons-container">
+                    <button className="home-exit">Exit</button>
+                    <button className="home-start" onClick={() => navigate('/EventSelector')}>
                         Start
                     </button>
                 </div>

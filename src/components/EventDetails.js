@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import './styles/EventDetails.css';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { FormWindow } from './window/FormWindow';
 import { FormBody } from './window/FormBody';
-import { useNavigate, useLocation } from 'react-router-dom';
+import './styles/EventDetails.css';
 
 export default function EventDetails() {
     const navigate = useNavigate();
     const location = useLocation();
-    // Expect eventName to be a string like '20250713_poolparty'
     const eventName = typeof location.state?.event === 'string' ? location.state.event : null;
+
     const [event, setEvent] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -19,6 +19,7 @@ export default function EventDetails() {
             setLoading(false);
             return;
         }
+
         fetch(`http://localhost:3001/api/events/${eventName}`)
             .then(res => res.json())
             .then(data => {
@@ -35,41 +36,33 @@ export default function EventDetails() {
             });
     }, [eventName]);
 
-    if (loading) return (
-        <FormWindow>
-            <FormBody>
-                <div className="loading-message">Loading event details...</div>
-            </FormBody>
-        </FormWindow>
-    );
-    if (error) return (
-        <FormWindow>
-            <FormBody>
-                <div className="error-message">{error}</div>
-            </FormBody>
-        </FormWindow>
-    );
-    if (!event) return null;
+    if (loading || error || !event) {
+        return (
+            <FormWindow>
+                <FormBody>
+                    <div className={error ? "error-message" : "loading-message"}>
+                        {error || "Loading event details..."}
+                    </div>
+                </FormBody>
+            </FormWindow>
+        );
+    }
 
     return (
         <FormWindow>
             <FormBody>
                 <h2 className="event-name">{event.name}</h2>
-
                 <div className="top-row">
                     <div className="event-logo">
-                        {eventName && (
-                            <img
-                                src={`http://localhost:3001/${eventName}/logo.png`}
-                                alt="Event Logo"
-                                onError={e => {
-                                    e.target.onerror = null;
-                                    e.target.src = '/placeholder-logo.svg.png';
-                                }}
-                            />
-                        )}
+                        <img
+                            src={`http://localhost:3001/${eventName}/logo.png`}
+                            alt="Event Logo"
+                            onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.src = '/placeholder-logo.svg.png';
+                            }}
+                        />
                     </div>
-
                     <div className="event-data">
                         <div className="data-section">
                             <div>
@@ -87,18 +80,12 @@ export default function EventDetails() {
                     </div>
                 </div>
 
-                {/*<div className="map-section">*/}
-                {/*    <label>Route</label>*/}
-                {/*    <div className="route-map">496 x 120</div>*/}
-                {/*</div>*/}
-
                 <div className="buttons-row">
                     <button className="Exit" onClick={() => navigate('/EventSelector')}>Cancel</button>
                     <button className="Manage">Manage Registrations</button>
-                    <button className="Start">Start Timing</button>
+                    <button className="Start" onClick={() => navigate('/ParticipantCard')}>Registrate</button>
                 </div>
             </FormBody>
         </FormWindow>
     );
-
 }

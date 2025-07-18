@@ -35,10 +35,10 @@ export default function EventSelector() {
     return (
         <FormWindow>
             <FormBody>
-                <div className="top-buttons-row">
-                    <div className="dropdown-container">
+                <div className="event-top-buttons-row">
+                    <div className="event-dropdown-container">
                         <button
-                            className="dropdown-btn"
+                            className="event-dropdown-btn"
                             aria-haspopup="listbox"
                             aria-expanded={dropdownOpen}
                             onClick={() => setDropdownOpen(prev => !prev)}
@@ -46,13 +46,13 @@ export default function EventSelector() {
                             {selectedEvent?.name || 'Select Event'}
                         </button>
                         {dropdownOpen && (
-                            <ul className="dropdown-list" role="listbox">
+                            <ul className="event-dropdown-list" role="listbox">
                                 {events.map(event => (
                                     <li
                                         key={event.id}
                                         role="option"
                                         aria-selected={selectedEvent?.id === event.id}
-                                        className={selectedEvent?.id === event.id ? 'selected' : ''}
+                                        className={selectedEvent?.id === event.id ? 'event-selected' : ''}
                                         onClick={() => {
                                             setSelectedEvent(event);
                                             setDropdownOpen(false);
@@ -65,18 +65,18 @@ export default function EventSelector() {
                         )}
                     </div>
                     <button
-                        className="accept-btn"
+                        className="event-accept-btn"
                         onClick={handleAccept}
                         disabled={!selectedEvent}
                     >
                         Accept
                     </button>
                 </div>
-                {loading && <div className="loading-message">Loading events...</div>}
-                {error && <div className="error-message">{error}</div>}
-                <div className="buttons-container">
-                    <button className="Exit" onClick={() => navigate('/')}>Cancel</button>
-                    <button className="Start" onClick={() => navigate('/NewEventForm')}>New party</button>
+                {loading && <div className="event-loading-message">Loading events...</div>}
+                {error && <div className="event-error-message">{error}</div>}
+                <div className="event-buttons-container">
+                    <button className="event-exit" onClick={() => navigate('/')}>Cancel</button>
+                    <button className="event-start" onClick={() => navigate('/NewEventForm')}>New party</button>
                 </div>
             </FormBody>
         </FormWindow>

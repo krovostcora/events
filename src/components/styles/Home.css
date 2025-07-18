@@ -1,27 +1,25 @@
-/* Home.styles */
-
-
-.buttons-container {
+.home-buttons-container {
     display: flex;
     justify-content: center;
     gap: 20px;
 }
 
-/*button.Start,*/
-/*button.Exit {*/
-/*    padding: 10px 20px;*/
-/*    font-size: 16px;*/
-/*    cursor: pointer;*/
-/*    border: none;*/
-/*    border-radius: 8px;*/
-/*}*/
-
-button.Start {
+button.home-start {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
     background-color: #4caf50;
     color: white;
 }
 
-button.Exit {
+button.home-exit {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
     background-color: #f44336;
     color: white;
 }

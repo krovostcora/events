@@ -1,5 +1,6 @@
+/* EventSelector.css */
 
-.top-buttons-row {
+.event-top-buttons-row {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -7,16 +8,7 @@
     margin-bottom: 80px;
 }
 
-/*form-body {*/
-/*    width: 60% !important;*/
-/*    align-self: center;*/
-/*    padding: 20px;*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    gap: 80px !important;*/
-/*}*/
-
-.dropdown-btn {
+.event-dropdown-btn {
     width: 300px;
     padding: 10px 24px;
     font-size: 14px;
@@ -27,7 +19,7 @@
     transition: background-color 0.2s ease;
 }
 
-.accept-btn {
+.event-accept-btn {
     padding: 10px 24px;
     font-size: 14px;
     border: 2px solid #000;
@@ -37,12 +29,12 @@
     transition: background-color 0.2s ease;
 }
 
-.dropdown-btn:hover,
-.accept-btn:hover {
+.event-dropdown-btn:hover,
+.event-accept-btn:hover {
     background-color: #e6e6e6;
 }
 
-.dropdown-list {
+.event-dropdown-list {
     top: 42px;
     left: 0;
     list-style: none;
@@ -54,23 +46,23 @@
     width: 296px;
 }
 
-.dropdown-list li {
+.event-dropdown-list li {
     padding: 10px 24px;
     border-bottom: 1px solid #ccc;
     cursor: pointer;
 }
 
-.dropdown-list li:hover {
+.event-dropdown-list li:hover {
     background-color: #f0f0f0;
 }
 
-.buttons-container {
+.event-buttons-container {
     display: flex;
     justify-content: space-between;
 }
 
-button.Start,
-button.Exit {
+button.event-start,
+button.event-exit {
     padding: 12px 32px;
     font-size: 16px;
     cursor: pointer;
@@ -81,12 +73,27 @@ button.Exit {
     border-radius: 0;
 }
 
-button.Start {
+button.event-start {
     background-color: #b5b3b3;
     width: 250px;
 }
 
-button.Start:hover,
-button.Exit:hover {
+button.event-start:hover,
+button.event-exit:hover {
     background-color: #e6e6e6;
+}
+.event-loading-message,
+.event-error-message {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.event-error-message {
+    color: red;
+}
+
+.event-selected {
+    background-color: #f0f0f0;
+    font-weight: bold;
 }

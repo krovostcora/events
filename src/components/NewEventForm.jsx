@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
-import './styles/NewEventForm.css';
-import { FormWindow } from './window/FormWindow';
-import { FormBody } from './window/FormBody';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import { FormWindow } from './window/FormWindow';
+import { FormBody } from './window/FormBody';
+import './styles/NewEventForm.css';
 
 export default function NewEventForm() {
     const [form, setForm] = useState({
         name: '',
         date: '',
         time: '',
-        location: '',
+        place: '',
         logo: null
     });
+
     const navigate = useNavigate();
 
     function formatFolderName(name, date) {
@@ -24,7 +25,7 @@ export default function NewEventForm() {
     async function handleAccept() {
         const folderName = formatFolderName(form.name, form.date);
         const eventId = uuidv4();
-        const csvContent = `id;name;date;time;place\n${eventId};${form.name};${form.date};${form.time};${form.location}`;
+        const csvContent = `id;name;date;time;place\n${eventId};${form.name};${form.date};${form.time};${form.place}`;
 
         const folderHandle = await window.showDirectoryPicker();
         const eventFolder = await folderHandle.getDirectoryHandle(folderName, { create: true });
@@ -70,21 +71,19 @@ export default function NewEventForm() {
                     <div className="input-group">
                         <input
                             type="date"
-                            placeholder="Date of the event"
                             value={form.date}
                             onChange={(e) => setForm({ ...form, date: e.target.value })}
                         />
                         <input
                             type="time"
-                            placeholder="Time of the event"
                             value={form.time}
                             onChange={(e) => setForm({ ...form, time: e.target.value })}
                         />
                         <input
                             type="text"
                             placeholder="Place of the event"
-                            value={form.location}
-                            onChange={(e) => setForm({ ...form, location: e.target.value })}
+                            value={form.place}
+                            onChange={(e) => setForm({ ...form, place: e.target.value })}
                         />
                     </div>
                 </div>
