@@ -127,9 +127,9 @@ const ParticipantCard = () => {
                             <option value="male">Male</option>
                             <option value="other">Other</option>
                         </select>
-                        <div style={{ gridColumn: '1 / span 2', marginTop: 24, display: 'flex', gap: 16 }}>
-                            <button type="submit" className="form-btn">Submit</button>
+                        <div style={{ gridColumn: '1 / span 2', marginTop: 24, display: 'flex', gap: 360 }}>
                             <button type="button" className="form-btn" onClick={handleCancel} onClick={() => navigate('/EventSelector')}>Cancel</button>
+                            <button type="submit" className="form-btn">Submit</button>
                         </div>
                     </form>
                 </div>

@@ -20,7 +20,7 @@ export default function Home() {
                         width: 'auto'
                     }}
                 />
-                <div className="home-buttons-container">
+                <div style={{ gridColumn: '1 / span 2', marginTop: 24, display: 'flex', gap: 300 }}>
                     <button className="home-exit">Exit</button>
                     <button className="home-start" onClick={() => navigate('/EventSelector')}>
                         Start

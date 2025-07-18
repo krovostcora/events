@@ -8,8 +8,14 @@
     margin-bottom: 80px;
 }
 
-.event-dropdown-btn {
+.event-dropdown-container {
+    position: relative;
+    display: inline-block;
     width: 300px;
+}
+
+.event-dropdown-btn {
+    width: 100%;
     padding: 10px 24px;
     font-size: 14px;
     border: 2px solid #000;
@@ -17,6 +23,7 @@
     color: #000;
     cursor: pointer;
     transition: background-color 0.2s ease;
+    text-align: left;
 }
 
 .event-accept-btn {
@@ -35,7 +42,8 @@
 }
 
 .event-dropdown-list {
-    top: 42px;
+    position: absolute;
+    top: 100%;
     left: 0;
     list-style: none;
     margin: 0;
@@ -43,7 +51,10 @@
     border: 2px solid #000;
     background-color: #fff;
     z-index: 1000;
-    width: 296px;
+    width: 98.6%;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .event-dropdown-list li {
@@ -82,6 +93,7 @@ button.event-start:hover,
 button.event-exit:hover {
     background-color: #e6e6e6;
 }
+
 .event-loading-message,
 .event-error-message {
     text-align: center;
