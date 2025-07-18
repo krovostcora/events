@@ -28,7 +28,7 @@ export default function EventSelector() {
 
     const handleAccept = () => {
         if (selectedEvent) {
-            navigate('/EventDetails', { state: { event: selectedEvent } });
+            navigate('/EventDetails', { state: { event: selectedEvent.folder } });
         }
     };
 

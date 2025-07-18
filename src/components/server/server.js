@@ -1,6 +1,5 @@
-// src/components/server/server.js
 const express = require('express');
-const fs = require('fs');
+const fs = require('fs').promises;
 const path = require('path');
 const cors = require('cors');
 const Papa = require('papaparse');
@@ -12,56 +11,68 @@ app.use(cors());
 app.use(express.static('events'));
 
 // List all events
-app.get('/api/events', (req, res) => {
-    fs.readdir(eventsDir, (err, folders) => {
-        if (err) return res.status(500).json({ error: 'Error reading events folder' });
-
+app.get('/api/events', async (req, res) => {
+    try {
+        const folders = await fs.readdir(eventsDir);
         const events = [];
 
-        folders.forEach(folder => {
+        for (const folder of folders) {
             const folderPath = path.join(eventsDir, folder);
-            const stat = fs.statSync(folderPath);
-            if (!stat.isDirectory()) return;
+            const stat = await fs.stat(folderPath);
+            if (!stat.isDirectory()) continue;
+
+            // Extract date and event name from folder name
+            const match = folder.match(/^(\d{8})_(.+)$/);
+            let eventDate = 'Unknown', eventName = folder;
+            if (match) {
+                eventDate = match[1];
+                eventName = match[2];
+            }
 
             const csvPath = path.join(folderPath, `${folder}.csv`);
-            const csvData = fs.existsSync(csvPath) ? fs.readFileSync(csvPath, 'utf8') : null;
-            let date = 'Unknown', time = 'Unknown', location = 'Unknown';
+            let date = eventDate, time = 'Unknown', place = 'Unknown';
 
-            if (csvData) {
+            try {
+                const csvData = await fs.readFile(csvPath, 'utf8');
                 const parsed = Papa.parse(csvData, { header: true, delimiter: ';', skipEmptyLines: true });
                 const firstRow = parsed.data[0];
                 if (firstRow) {
-                    date = firstRow.date || 'Unknown';
+                    date = firstRow.date || eventDate;
                     time = firstRow.time || 'Unknown';
-                    location = firstRow.location || 'Unknown';
+                    place = firstRow.place || 'Unknown';
                 }
+            } catch {
+                // CSV not found or unreadable
             }
 
             events.push({
-                name: folder,
+                folder, // actual folder name for lookup
+                name: eventName,
                 date,
                 time,
-                location,
+                place,
                 csvPath: `/${folder}/${folder}.csv`,
                 logoPath: `/${folder}/logo.png`
             });
-        });
+        }
 
         res.json(events);
-    });
+    } catch (err) {
+        res.status(500).json({ error: 'Error reading events folder' });
+    }
 });
-
 // Get event details from CSV
-app.get('/api/events/:eventName', (req, res) => {
+app.get('/api/events/:eventName', async (req, res) => {
     const eventName = req.params.eventName;
     const csvFile = path.join(eventsDir, eventName, `${eventName}.csv`);
 
-    fs.readFile(csvFile, 'utf8', (err, data) => {
-        if (err) return res.status(404).json({ error: 'Event CSV not found' });
-
+    try {
+        const data = await fs.readFile(csvFile, 'utf8');
         const parsed = Papa.parse(data, { header: true, delimiter: ';', skipEmptyLines: true });
         res.json(parsed.data);
-    });
+    } catch {
+        res.status(404).json({ error: 'Event CSV not found' });
+    }
 });
 
 app.listen(3001, () => console.log('API running on http://localhost:3001'));
